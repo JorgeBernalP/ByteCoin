@@ -6,7 +6,6 @@
         <capability name="Image references" minToolsVersion="12.0"/>
         <capability name="Named colors" minToolsVersion="9.0"/>
         <capability name="Safe area layout guides" minToolsVersion="9.0"/>
-        <capability name="System colors in document resources" minToolsVersion="11.0"/>
         <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
     </dependencies>
     <customFonts key="customFonts">
@@ -18,10 +17,10 @@
         </array>
     </customFonts>
     <scenes>
-        <!--View Controller-->
+        <!--Crypto View Controller-->
         <scene sceneID="tne-QT-ifu">
             <objects>
-                <viewController id="BYZ-38-t0r" customClass="ViewController" customModule="ByteCoin" customModuleProvider="target" sceneMemberID="viewController">
+                <viewController id="BYZ-38-t0r" customClass="CryptoViewController" customModule="ByteCoin" customModuleProvider="target" sceneMemberID="viewController">
                     <view key="view" contentMode="scaleToFill" id="8bC-Xf-vdC">
                         <rect key="frame" x="0.0" y="0.0" width="414" height="896"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
@@ -72,15 +71,15 @@
                                     <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="Md6-Dd-p1V" userLabel="Middle View">
                                         <rect key="frame" x="0.0" y="154" width="414" height="558"/>
                                         <subviews>
-                                            <tableView clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" separatorStyle="default" rowHeight="-1" estimatedRowHeight="-1" sectionHeaderHeight="-1" estimatedSectionHeaderHeight="-1" sectionFooterHeight="-1" estimatedSectionFooterHeight="-1" translatesAutoresizingMaskIntoConstraints="NO" id="JHZ-YY-OuR">
-                                                <rect key="frame" x="40" y="0.0" width="334" height="558"/>
-                                                <color key="backgroundColor" systemColor="systemBackgroundColor"/>
+                                            <tableView clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" separatorStyle="none" rowHeight="-1" estimatedRowHeight="-1" sectionHeaderHeight="-1" estimatedSectionHeaderHeight="-1" sectionFooterHeight="-1" estimatedSectionFooterHeight="-1" translatesAutoresizingMaskIntoConstraints="NO" id="JHZ-YY-OuR">
+                                                <rect key="frame" x="20" y="0.0" width="374" height="558"/>
+                                                <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                                 <prototypes>
-                                                    <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" preservesSuperviewLayoutMargins="YES" selectionStyle="default" indentationWidth="10" id="JHc-Kh-ktA">
-                                                        <rect key="frame" x="0.0" y="44.5" width="334" height="43.5"/>
+                                                    <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" preservesSuperviewLayoutMargins="YES" selectionStyle="default" indentationWidth="10" reuseIdentifier="CryptoCell" id="JHc-Kh-ktA">
+                                                        <rect key="frame" x="0.0" y="44.5" width="374" height="44"/>
                                                         <autoresizingMask key="autoresizingMask"/>
                                                         <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" preservesSuperviewLayoutMargins="YES" insetsLayoutMarginsFromSafeArea="NO" tableViewCell="JHc-Kh-ktA" id="dmO-pt-lIf">
-                                                            <rect key="frame" x="0.0" y="0.0" width="334" height="43.5"/>
+                                                            <rect key="frame" x="0.0" y="0.0" width="374" height="44"/>
                                                             <autoresizingMask key="autoresizingMask"/>
                                                         </tableViewCellContentView>
                                                     </tableViewCell>
@@ -88,10 +87,10 @@
                                             </tableView>
                                         </subviews>
                                         <constraints>
-                                            <constraint firstItem="JHZ-YY-OuR" firstAttribute="leading" secondItem="Md6-Dd-p1V" secondAttribute="leading" constant="40" id="AKC-0l-kb4"/>
+                                            <constraint firstItem="JHZ-YY-OuR" firstAttribute="leading" secondItem="Md6-Dd-p1V" secondAttribute="leading" constant="20" id="AKC-0l-kb4"/>
                                             <constraint firstItem="JHZ-YY-OuR" firstAttribute="top" secondItem="Md6-Dd-p1V" secondAttribute="top" id="KvA-DH-Xy8"/>
                                             <constraint firstAttribute="bottom" secondItem="JHZ-YY-OuR" secondAttribute="bottom" id="fIe-Bb-geQ"/>
-                                            <constraint firstAttribute="trailing" secondItem="JHZ-YY-OuR" secondAttribute="trailing" constant="40" id="tQu-oF-yS9"/>
+                                            <constraint firstAttribute="trailing" secondItem="JHZ-YY-OuR" secondAttribute="trailing" constant="20" id="tQu-oF-yS9"/>
                                         </constraints>
                                     </view>
                                     <view contentMode="bottom" translatesAutoresizingMaskIntoConstraints="NO" id="GGi-tp-NA4" userLabel="Bottom View">
@@ -177,6 +176,7 @@
                         <outlet property="cryptoButton" destination="mVF-nP-gIu" id="Ui9-KK-quf"/>
                         <outlet property="currencyButton" destination="dF6-JP-fwM" id="bap-gc-XHe"/>
                         <outlet property="descriptionLabel" destination="qEc-LP-tdW" id="TpW-hb-K2e"/>
+                        <outlet property="tableView" destination="JHZ-YY-OuR" id="3Oc-Y3-1N7"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="dkx-z0-nzr" sceneMemberID="firstResponder"/>
@@ -202,8 +202,5 @@
         <namedColor name="ByteCoin Green">
             <color red="0.34900000691413879" green="0.99599999189376831" blue="0.80400002002716064" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
         </namedColor>
-        <systemColor name="systemBackgroundColor">
-            <color white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
-        </systemColor>
     </resources>
 </document>
