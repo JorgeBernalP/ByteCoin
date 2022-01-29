@@ -136,6 +136,9 @@
                                                                 <real key="value" value="24"/>
                                                             </userDefinedRuntimeAttribute>
                                                         </userDefinedRuntimeAttributes>
+                                                        <connections>
+                                                            <action selector="currencyPressed:" destination="BYZ-38-t0r" eventType="touchUpInside" id="ozJ-J2-xwh"/>
+                                                        </connections>
                                                     </button>
                                                 </subviews>
                                                 <constraints>
