@@ -20,7 +20,7 @@ class CryptoViewController: UIViewController {
     var cryptoPrice : String = ""
     var currency : String = ""
     
-    let cryptos = ["Bitcoin", "Ethereum", "Dogecoin", "Avalanche", "NEAR Protocol", "3", "4", "5"]
+    var cryptos = ["Bitcoin"]
     
     var currencyPicker = UIPickerView()
     var currencyPickerSelcted = ""
@@ -35,12 +35,24 @@ class CryptoViewController: UIViewController {
         currencyPicker.dataSource = self
         
         //Default value
-        cryptoManager.getCryptoPrice(for: "USD")
+        cryptoManager.getCryptoPrice(for: "USD", in: "BTC")
         
         tableView.register(UINib(nibName: "CryptoCell", bundle: nil), forCellReuseIdentifier: "CryptoCell")
         
         tableView.showsVerticalScrollIndicator = false
     
+    }
+    
+    override func viewWillAppear(_ animated: Bool) {
+        super.viewWillAppear(true)
+        // Hide the Navigation Bar
+        self.navigationController?.setNavigationBarHidden(true, animated: true)
+    }
+    
+    override func viewWillDisappear(_ animated: Bool) {
+        super.viewWillDisappear(true)
+        // Show the Navigation Bar
+        self.navigationController?.setNavigationBarHidden(false, animated: false)
     }
     
     @IBAction func currencyPressed(_ sender: UIButton) {
@@ -64,7 +76,16 @@ class CryptoViewController: UIViewController {
     @objc func onDoneButtonTapped() {
         currencyPickerToolBar.removeFromSuperview()
         currencyPicker.removeFromSuperview()
-        cryptoManager.getCryptoPrice(for: currencyPickerSelcted)
+        cryptoManager.getCryptoPrice(for: currencyPickerSelcted, in: "BTC")
+    }
+
+    @IBAction func addCryptoPressed(_ sender: UIButton) {
+        performSegue(withIdentifier: "goToSelectCrypto", sender: self)
+    }
+    
+    override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
+        let destinationVC = segue.destination as? SelectCryptoViewController
+        destinationVC?.delegate = self
     }
     
 }
@@ -135,7 +156,7 @@ extension CryptoViewController: UIPickerViewDelegate, UIPickerViewDataSource {
 
 extension CryptoViewController: CryptoManagerDelegate {
     
-    func didUpdatePrice(price: String, currency: String) {
+    func didUpdatePrice(price: String, currency: String, crypto: String) {
         DispatchQueue.main.async {
             self.cryptoPrice = price
             self.currency = currency
@@ -148,4 +169,20 @@ extension CryptoViewController: CryptoManagerDelegate {
     }
     
 }
+
+//MARK: - SelectCryptoDelegate
+
+extension CryptoViewController: SelectCryptoDelegate {
+    
+    func didSelectCryptoOption(option: String) {
+        
+        DispatchQueue.main.async {
+            self.cryptos.append(option)
+            self.tableView.reloadData()
+        }
+        
+    }
+    
+}
+
 

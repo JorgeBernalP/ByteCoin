@@ -9,7 +9,7 @@ import Foundation
 import CoreLocation
 
 protocol CryptoManagerDelegate {
-    func didUpdatePrice(price: String, currency: String)
+    func didUpdatePrice(price: String, currency: String, crypto: String)
     func didFailWithError(error: Error)
 }
 
@@ -23,7 +23,7 @@ struct CryptoManager {
     let currencyArray = ["AUD", "BRL","CAD", "COP", "CNY","EUR","GBP","HKD","IDR","ILS","INR","JPY","MXN","NOK","NZD","PLN","RON","RUB","SEK","SGD","USD","ZAR"]
     let cryptoArray = ["BTC", "ETH", "BNB", "ADA", "SOL", "XRP", "LUNA", "DOGE", "DOT", "AVAX"]
     
-    func getCryptoPrice(for currency: String) {
+    func getCryptoPrice(for currency: String, in crypto: String) {
         
         let urlString = "\(rateURL)/\(currency)?apikey=\(apiKey)"
         
@@ -38,7 +38,7 @@ struct CryptoManager {
                 if let safeData = data {
                     if let cryptoPrice = self.parseJSON(safeData) {
                         let priceString = String(format: "$%.02f", cryptoPrice)
-                        self.delegate?.didUpdatePrice(price: priceString, currency: currency)
+                        self.delegate?.didUpdatePrice(price: priceString, currency: currency, crypto: crypto)
                     }
                 }
             }

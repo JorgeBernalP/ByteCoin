@@ -22,6 +22,7 @@
 		FAF8103627A5DEB900B0DC2A /* CryptoManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = FAF8103527A5DEB900B0DC2A /* CryptoManager.swift */; };
 		FAF8103827A5E18C00B0DC2A /* CryptoData.swift in Sources */ = {isa = PBXBuildFile; fileRef = FAF8103727A5E18C00B0DC2A /* CryptoData.swift */; };
 		FAF8103A27A603F100B0DC2A /* Crypto.swift in Sources */ = {isa = PBXBuildFile; fileRef = FAF8103927A603F100B0DC2A /* Crypto.swift */; };
+		FAF8103E27A6EB6400B0DC2A /* SelectCryptoViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = FAF8103D27A6EB6400B0DC2A /* SelectCryptoViewController.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -43,6 +44,7 @@
 		FAF8103527A5DEB900B0DC2A /* CryptoManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CryptoManager.swift; sourceTree = "<group>"; };
 		FAF8103727A5E18C00B0DC2A /* CryptoData.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CryptoData.swift; sourceTree = "<group>"; };
 		FAF8103927A603F100B0DC2A /* Crypto.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Crypto.swift; sourceTree = "<group>"; };
+		FAF8103D27A6EB6400B0DC2A /* SelectCryptoViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SelectCryptoViewController.swift; sourceTree = "<group>"; };
 		FE772D44A6F818EF9AC4984E /* Pods_ByteCoin.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_ByteCoin.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 /* End PBXFileReference section */
 
@@ -144,6 +146,7 @@
 			isa = PBXGroup;
 			children = (
 				FA51A67B27A44DE800A40310 /* CryptoViewController.swift */,
+				FAF8103D27A6EB6400B0DC2A /* SelectCryptoViewController.swift */,
 			);
 			path = Controller;
 			sourceTree = "<group>";
@@ -269,6 +272,7 @@
 				FAF8103A27A603F100B0DC2A /* Crypto.swift in Sources */,
 				FA51A67C27A44DE800A40310 /* CryptoViewController.swift in Sources */,
 				FA51A67827A44DE800A40310 /* AppDelegate.swift in Sources */,
+				FAF8103E27A6EB6400B0DC2A /* SelectCryptoViewController.swift in Sources */,
 				FAF8103627A5DEB900B0DC2A /* CryptoManager.swift in Sources */,
 				FAF8103827A5E18C00B0DC2A /* CryptoData.swift in Sources */,
 				FAF8103327A5B20A00B0DC2A /* CryptoCell.swift in Sources */,
