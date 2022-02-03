@@ -17,13 +17,16 @@ class CryptoViewController: UIViewController {
     
     var cryptoManager = CryptoManager()
     
+    var cryptoName : String = ""
     var cryptoPrice : String = ""
     var currency : String = ""
+    var cryptoId : String = ""
+    
+    var currencyPickerSelected = ""
     
     var cryptos = ["Bitcoin"]
     
     var currencyPicker = UIPickerView()
-    var currencyPickerSelcted = ""
     let currencyPickerToolBar = UIToolbar.init(frame: CGRect.init(x: 0.0, y: UIScreen.main.bounds.size.height - 200, width: UIScreen.main.bounds.size.width, height: 50))
     
     override func viewDidLoad() {
@@ -34,8 +37,9 @@ class CryptoViewController: UIViewController {
         cryptoManager.delegate = self
         currencyPicker.dataSource = self
         
-        //Default value
         cryptoManager.getCryptoPrice(for: "USD", in: "BTC")
+        
+        //Default value
         
         tableView.register(UINib(nibName: "CryptoCell", bundle: nil), forCellReuseIdentifier: "CryptoCell")
         
@@ -76,7 +80,7 @@ class CryptoViewController: UIViewController {
     @objc func onDoneButtonTapped() {
         currencyPickerToolBar.removeFromSuperview()
         currencyPicker.removeFromSuperview()
-        cryptoManager.getCryptoPrice(for: currencyPickerSelcted, in: "BTC")
+        cryptoManager.getCryptoPrice(for: currencyPickerSelected, in: cryptoId)
     }
 
     @IBAction func addCryptoPressed(_ sender: UIButton) {
@@ -107,9 +111,11 @@ extension CryptoViewController: UITableViewDataSource {
         cell.cryptoName.text = crypto
         
         DispatchQueue.main.async {
-            self.descriptionLabel.text = "Check the current prices of cryptocurrency arround the world in \(self.currency)."
+            self.descriptionLabel.text = "Check the current prices of cryptocurrency arround the world in \(self.currencyPickerSelected)."
             cell.currencyValue.text = self.cryptoPrice
             cell.currencyName.text = self.currency
+            cell.cryptoName.text = self.cryptoName
+            cell.cryptoShortName.text = self.cryptoId
         }
         
         cell.backgroundColor = UIColor(ciColor: .clear)
@@ -139,15 +145,15 @@ extension CryptoViewController: UIPickerViewDelegate, UIPickerViewDataSource {
     }
     
     func pickerView(_ pickerView: UIPickerView, numberOfRowsInComponent component: Int) -> Int {
-        return cryptoManager.currencyArray.count
+        return cryptoManager.currencyDict.count
     }
     
     func pickerView(_ pickerView: UIPickerView, titleForRow row: Int, forComponent component: Int) -> String? {
-        return cryptoManager.currencyArray[row]
+        return cryptoManager.orderedCurrencyDict[row].key
     }
     
     func pickerView(_ pickerView: UIPickerView, didSelectRow row: Int, inComponent component: Int) {
-        currencyPickerSelcted = cryptoManager.currencyArray[row]
+        currencyPickerSelected = cryptoManager.orderedCurrencyDict[row].value
     }
     
 }
@@ -174,10 +180,12 @@ extension CryptoViewController: CryptoManagerDelegate {
 
 extension CryptoViewController: SelectCryptoDelegate {
     
-    func didSelectCryptoOption(option: String) {
+    func didSelectCryptoOption(name: String, crypto: String) {
         
         DispatchQueue.main.async {
-            self.cryptos.append(option)
+            self.cryptos.append(crypto)
+            self.cryptoId = crypto
+            self.cryptoName = name
             self.tableView.reloadData()
         }
         

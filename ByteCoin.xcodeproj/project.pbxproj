@@ -8,6 +8,8 @@
 
 /* Begin PBXBuildFile section */
 		B4797395A9072F6FB888B095 /* Pods_ByteCoin.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = FE772D44A6F818EF9AC4984E /* Pods_ByteCoin.framework */; };
+		FA49021827AB815800BD36F5 /* CryptoImageManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = FA49021727AB815800BD36F5 /* CryptoImageManager.swift */; };
+		FA49021A27AB819D00BD36F5 /* CryptoImageData.swift in Sources */ = {isa = PBXBuildFile; fileRef = FA49021927AB819D00BD36F5 /* CryptoImageData.swift */; };
 		FA51A67827A44DE800A40310 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = FA51A67727A44DE800A40310 /* AppDelegate.swift */; };
 		FA51A67A27A44DE800A40310 /* SceneDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = FA51A67927A44DE800A40310 /* SceneDelegate.swift */; };
 		FA51A67C27A44DE800A40310 /* CryptoViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = FA51A67B27A44DE800A40310 /* CryptoViewController.swift */; };
@@ -28,6 +30,8 @@
 /* Begin PBXFileReference section */
 		3E2C977B45A4C7234956BDE3 /* Pods-ByteCoin.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-ByteCoin.debug.xcconfig"; path = "Target Support Files/Pods-ByteCoin/Pods-ByteCoin.debug.xcconfig"; sourceTree = "<group>"; };
 		A425ACD851FB8D22C0ECED2D /* Pods-ByteCoin.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-ByteCoin.release.xcconfig"; path = "Target Support Files/Pods-ByteCoin/Pods-ByteCoin.release.xcconfig"; sourceTree = "<group>"; };
+		FA49021727AB815800BD36F5 /* CryptoImageManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CryptoImageManager.swift; sourceTree = "<group>"; };
+		FA49021927AB819D00BD36F5 /* CryptoImageData.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CryptoImageData.swift; sourceTree = "<group>"; };
 		FA51A67427A44DE800A40310 /* ByteCoin.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = ByteCoin.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		FA51A67727A44DE800A40310 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		FA51A67927A44DE800A40310 /* SceneDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SceneDelegate.swift; sourceTree = "<group>"; };
@@ -128,6 +132,8 @@
 				FAF8103527A5DEB900B0DC2A /* CryptoManager.swift */,
 				FAF8103727A5E18C00B0DC2A /* CryptoData.swift */,
 				FAF8103927A603F100B0DC2A /* Crypto.swift */,
+				FA49021727AB815800BD36F5 /* CryptoImageManager.swift */,
+				FA49021927AB819D00BD36F5 /* CryptoImageData.swift */,
 			);
 			path = Model;
 			sourceTree = "<group>";
@@ -270,6 +276,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				FAF8103A27A603F100B0DC2A /* Crypto.swift in Sources */,
+				FA49021A27AB819D00BD36F5 /* CryptoImageData.swift in Sources */,
 				FA51A67C27A44DE800A40310 /* CryptoViewController.swift in Sources */,
 				FA51A67827A44DE800A40310 /* AppDelegate.swift in Sources */,
 				FAF8103E27A6EB6400B0DC2A /* SelectCryptoViewController.swift in Sources */,
@@ -277,6 +284,7 @@
 				FAF8103827A5E18C00B0DC2A /* CryptoData.swift in Sources */,
 				FAF8103327A5B20A00B0DC2A /* CryptoCell.swift in Sources */,
 				FA51A68227A44DE800A40310 /* ByteCoin.xcdatamodeld in Sources */,
+				FA49021827AB815800BD36F5 /* CryptoImageManager.swift in Sources */,
 				FA51A67A27A44DE800A40310 /* SceneDelegate.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
