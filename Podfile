@@ -7,5 +7,6 @@ target 'ByteCoin' do
   # Pods for ByteCoin
   
   pod 'NeumorphismKit', '~> 1.0'
+  pod 'Kingfisher', '~> 7.0'
 
 end

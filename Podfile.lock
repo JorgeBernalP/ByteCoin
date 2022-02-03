@@ -1,16 +1,20 @@
 PODS:
+  - Kingfisher (7.1.2)
   - NeumorphismKit (1.1.0)
 
 DEPENDENCIES:
+  - Kingfisher (~> 7.0)
   - NeumorphismKit (~> 1.0)
 
 SPEC REPOS:
   trunk:
+    - Kingfisher
     - NeumorphismKit
 
 SPEC CHECKSUMS:
+  Kingfisher: 44ed6a8504763f27bab46163adfac83f5deb240c
   NeumorphismKit: c5d69c7260b5c27d90106aded6f9bd4a1eab458d
 
-PODFILE CHECKSUM: ebc9e192e83ddbea78a0e7e294829d6a5e5c87b3
+PODFILE CHECKSUM: 584245d9240c79bc1945701ef4ca6726dd06300f
 
 COCOAPODS: 1.8.4

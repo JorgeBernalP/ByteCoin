@@ -6,3 +6,13 @@
 //
 
 import Foundation
+
+struct CryptoImageData: Codable {
+    let assetID: String
+    let url: String
+    
+    enum CodingKeys: String, CodingKey {
+        case assetID = "asset_id"
+        case url
+    }
+}

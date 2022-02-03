@@ -6,6 +6,7 @@
 //
 
 import UIKit
+import Kingfisher
 
 protocol SelectCryptoDelegate {
     func didSelectCryptoOption(name: String, crypto: String)
@@ -16,9 +17,17 @@ class SelectCryptoViewController: UITableViewController {
     var delegate: SelectCryptoDelegate?
     
     var cryptoManager = CryptoManager()
+    
+    var cryptoImageManager = CryptoImageManager()
+    
+    var cryptoImageArray: [CryptoImageData] = []
 
     override func viewDidLoad() {
         super.viewDidLoad()
+        
+        cryptoImageManager.delegate = self
+        
+        cryptoImageManager.getCryptoImage()
         
         tableView.rowHeight = 56
 
@@ -38,7 +47,19 @@ class SelectCryptoViewController: UITableViewController {
         let namesArray = cryptoManager.orderedCryptoDict[indexPath.row].key
         let abbrArray = cryptoManager.orderedCryptoDict[indexPath.row].value
         
+        var safeURL = ""
+        
+        if let imageData = cryptoImageArray.first(where: { dataImage in
+            dataImage.assetID == abbrArray
+        }) {
+            safeURL = imageData.url
+        }
+        
+        let imageURL = URL(string: safeURL)
+        
         let cell = tableView.dequeueReusableCell(withIdentifier: "CryptoOptionCell", for: indexPath)
+        
+        cell.imageView?.kf.setImage(with: imageURL)
         
         cell.textLabel?.text = namesArray
         cell.detailTextLabel?.text = abbrArray
@@ -66,7 +87,15 @@ class SelectCryptoViewController: UITableViewController {
         
     }
     
+}
+
+extension SelectCryptoViewController: CryptoImageDelegate {
     
-    
+    func didGetCryptoImage(cryptoImg: [CryptoImageData]) {
+        DispatchQueue.main.async {
+            self.cryptoImageArray = cryptoImg
+            self.tableView.reloadData()
+        }
+    }
     
 }
