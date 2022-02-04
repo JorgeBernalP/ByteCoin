@@ -7,6 +7,7 @@
 
 import UIKit
 import NeumorphismKit
+import Kingfisher
 
 class CryptoViewController: UIViewController {
 
@@ -21,6 +22,7 @@ class CryptoViewController: UIViewController {
     var cryptoPrice : String = ""
     var currency : String = ""
     var cryptoId : String = ""
+    var cryptoImageURL : URL?
     
     var currencyPickerSelected = ""
     
@@ -116,6 +118,7 @@ extension CryptoViewController: UITableViewDataSource {
             cell.currencyName.text = self.currency
             cell.cryptoName.text = self.cryptoName
             cell.cryptoShortName.text = self.cryptoId
+            cell.cryptoImage.kf.setImage(with: self.cryptoImageURL)
         }
         
         cell.backgroundColor = UIColor(ciColor: .clear)
@@ -180,12 +183,13 @@ extension CryptoViewController: CryptoManagerDelegate {
 
 extension CryptoViewController: SelectCryptoDelegate {
     
-    func didSelectCryptoOption(name: String, crypto: String) {
+    func didSelectCryptoOption(name: String, crypto: String, image: URL?) {
         
         DispatchQueue.main.async {
             self.cryptos.append(crypto)
             self.cryptoId = crypto
             self.cryptoName = name
+            self.cryptoImageURL = image
             self.tableView.reloadData()
         }
         

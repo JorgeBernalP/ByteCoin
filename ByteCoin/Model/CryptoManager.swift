@@ -28,7 +28,7 @@ struct CryptoManager {
     
 //    let cryptoArray = ["BTC", "ETH", "BNB", "ADA", "SOL", "XRP", "LUNA", "DOGE", "DOT", "AVAX"]
     
-    let cryptoDict = ["Bitcoin" : "BTC", "Ethereum": "ETH", "BNB" : "BNB", "Cardano": "ADA", "Solano" : "SOL", "XRP" : "XRP", "TERRA" : "LUNA" , "Dogecoin" : "DOGE", "Polkadot" : "DOT", "Avalanche" : "AVAX" ]
+    let cryptoDict = ["Bitcoin" : "BTC", "Ethereum": "ETH", "TRON" : "TRX", "Cardano": "ADA", "Bitcoin Cash" : "BCH", "XRP" : "XRP", "TERRA" : "LUNA" , "Dogecoin" : "DOGE", "Polkadot" : "DOT", "Litecoin" : "LTC" ]
     
     lazy var orderedCryptoDict = cryptoDict.sorted(by: <)
     

@@ -15,7 +15,7 @@ struct CryptoImageManager {
     
     var delegate: CryptoImageDelegate?
     
-    let imageURL = "https://rest.coinapi.io/v1/assets/icons/24"
+    let imageURL = "https://rest.coinapi.io/v1/assets/icons/16"
     let apiKey = "244BBAF1-FC77-4E6D-8113-C4247FFC041F"
     
     func getCryptoImage() {
