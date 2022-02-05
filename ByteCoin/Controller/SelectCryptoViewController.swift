@@ -9,7 +9,7 @@ import UIKit
 import Kingfisher
 
 protocol SelectCryptoDelegate {
-    func didSelectCryptoOption(name: String, crypto: String, image: URL?)
+    func didSelectCryptoOption(crypto: Crypto)
 }
 
 class SelectCryptoViewController: UITableViewController {
@@ -24,18 +24,7 @@ class SelectCryptoViewController: UITableViewController {
     
     var namesArray = ""
     var abbrArray = ""
-    
-    var safeURL : URL? {
-        
-        if let imageData = cryptoImageArray.first(where: { dataImage in
-            dataImage.assetID == abbrArray
-        }) {
-            return URL(string: imageData.url)
-        } else {
-            return nil
-        }
-        
-    }
+    var imagesArray : [URL?] = []
 
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -57,6 +46,14 @@ class SelectCryptoViewController: UITableViewController {
         cryptoImageManager.getCryptoImage()
         
     }
+    
+    func getImage() {
+        if let safeImage = cryptoImageArray.first(where: { image in
+            image.assetID == self.abbrArray
+        }) {
+            imagesArray.append(URL(string: safeImage.url))
+        }
+    }
 
     override func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
         return cryptoManager.cryptoDict.count
@@ -69,7 +66,11 @@ class SelectCryptoViewController: UITableViewController {
         
         let cell = tableView.dequeueReusableCell(withIdentifier: "CryptoOptionCell", for: indexPath)
         
-        cell.imageView?.kf.setImage(with: safeURL)
+        getImage()
+        
+        if imagesArray.count > 0 {
+            cell.imageView?.kf.setImage(with: imagesArray[indexPath.row])
+        }
         
         cell.textLabel?.text = namesArray
         cell.detailTextLabel?.text = abbrArray
@@ -91,7 +92,9 @@ class SelectCryptoViewController: UITableViewController {
         
         let selectedCrypto = cryptoManager.orderedCryptoDict[indexPath.row].value
         
-        delegate?.didSelectCryptoOption(name: selectedName, crypto: selectedCrypto, image: safeURL)
+        let cryptoSelected = Crypto(cryptoImage: imagesArray[indexPath.row], cryptoName: selectedName, cryptoAbbr: selectedCrypto, currencyValue: "0", currencyName: "USD")
+        
+        delegate?.didSelectCryptoOption(crypto: cryptoSelected)
         
         navigationController?.popViewController(animated: true)
         

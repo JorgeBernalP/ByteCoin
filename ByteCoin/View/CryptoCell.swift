@@ -31,5 +31,15 @@ class CryptoCell: UITableViewCell {
         // Configure the view for the selected state
     }
     
+    func setupCell(with crypto: Crypto) {
+        
+        cryptoImage.kf.setImage(with: crypto.cryptoImage)
+        cryptoName.text = crypto.cryptoName
+        cryptoShortName.text = crypto.cryptoAbbr
+        currencyValue.text = crypto.currencyValue
+        currencyName.text = crypto.currencyName
+        
+    }
+    
 }
 

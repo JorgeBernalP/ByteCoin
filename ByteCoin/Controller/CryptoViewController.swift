@@ -26,7 +26,7 @@ class CryptoViewController: UIViewController {
     
     var currencyPickerSelected = ""
     
-    var cryptos = ["Bitcoin"]
+    var cryptos : [Crypto] = []
     
     var currencyPicker = UIPickerView()
     let currencyPickerToolBar = UIToolbar.init(frame: CGRect.init(x: 0.0, y: UIScreen.main.bounds.size.height - 200, width: UIScreen.main.bounds.size.width, height: 50))
@@ -39,7 +39,9 @@ class CryptoViewController: UIViewController {
         cryptoManager.delegate = self
         currencyPicker.dataSource = self
         
-        cryptoManager.getCryptoPrice(for: "USD", in: "BTC")
+        DispatchQueue.main.async {
+            self.descriptionLabel.text = "Check the current prices of cryptocurrency arround the world in \(self.currencyPickerSelected)."
+        }
         
         //Default value
         
@@ -110,15 +112,8 @@ extension CryptoViewController: UITableViewDataSource {
         
         let cell = tableView.dequeueReusableCell(withIdentifier: "CryptoCell", for: indexPath) as! CryptoCell
         
-        cell.cryptoName.text = crypto
-        
         DispatchQueue.main.async {
-            self.descriptionLabel.text = "Check the current prices of cryptocurrency arround the world in \(self.currencyPickerSelected)."
-            cell.currencyValue.text = self.cryptoPrice
-            cell.currencyName.text = self.currency
-            cell.cryptoName.text = self.cryptoName
-            cell.cryptoShortName.text = self.cryptoId
-            cell.cryptoImage.kf.setImage(with: self.cryptoImageURL)
+            cell.setupCell(with: crypto)
         }
         
         cell.backgroundColor = UIColor(ciColor: .clear)
@@ -183,13 +178,10 @@ extension CryptoViewController: CryptoManagerDelegate {
 
 extension CryptoViewController: SelectCryptoDelegate {
     
-    func didSelectCryptoOption(name: String, crypto: String, image: URL?) {
+    func didSelectCryptoOption(crypto: Crypto) {
         
         DispatchQueue.main.async {
             self.cryptos.append(crypto)
-            self.cryptoId = crypto
-            self.cryptoName = name
-            self.cryptoImageURL = image
             self.tableView.reloadData()
         }
         
