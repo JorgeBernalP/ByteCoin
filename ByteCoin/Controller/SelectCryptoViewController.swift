@@ -32,18 +32,17 @@ class SelectCryptoViewController: UITableViewController {
         cryptoImageManager.delegate = self
         
         tableView.rowHeight = 56
+        
+        tableView.backgroundView = UIImageView(image: UIImage(named: "background"))
+        
+        DispatchQueue.main.async {
+            self.cryptoImageManager.getCryptoImage()
+        }
 
         //Title Style
         navigationController?.navigationBar.prefersLargeTitles = true
         navigationController?.title = "Select a Crypto"
         UINavigationBar.appearance().titleTextAttributes = [.foregroundColor: UIColor.white]
-        
-    }
-    
-    override func viewDidAppear(_ animated: Bool) {
-        super.viewDidAppear(animated)
-        
-        cryptoImageManager.getCryptoImage()
         
     }
     
@@ -69,7 +68,14 @@ class SelectCryptoViewController: UITableViewController {
         getImage()
         
         if imagesArray.count > 0 {
-            cell.imageView?.kf.setImage(with: imagesArray[indexPath.row])
+            
+            let processor = DownsamplingImageProcessor(size: CGSize(width: 16, height: 16))
+            cell.imageView?.kf.setImage(with: imagesArray[indexPath.row], options: [
+                .processor(processor),
+                .scaleFactor(UIScreen.main.scale),
+                .transition(.fade(1)),
+                .cacheOriginalImage
+            ])
         }
         
         cell.textLabel?.text = namesArray
@@ -88,15 +94,19 @@ class SelectCryptoViewController: UITableViewController {
     
     override func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
         
-        let selectedName = cryptoManager.orderedCryptoDict[indexPath.row].key
-        
-        let selectedCrypto = cryptoManager.orderedCryptoDict[indexPath.row].value
-        
-        let cryptoSelected = Crypto(cryptoImage: imagesArray[indexPath.row], cryptoName: selectedName, cryptoAbbr: selectedCrypto, currencyValue: "0", currencyName: "USD")
-        
-        delegate?.didSelectCryptoOption(crypto: cryptoSelected)
-        
-        navigationController?.popViewController(animated: true)
+        if imagesArray.count > 0 {
+            
+            let selectedName = cryptoManager.orderedCryptoDict[indexPath.row].key
+            
+            let selectedCrypto = cryptoManager.orderedCryptoDict[indexPath.row].value
+            
+            let cryptoSelected = Crypto(cryptoImage: imagesArray[indexPath.row], cryptoName: selectedName, cryptoAbbr: selectedCrypto, currencyValue: "0", currencyName: "USD")
+            
+            delegate?.didSelectCryptoOption(crypto: cryptoSelected)
+            
+            navigationController?.popViewController(animated: true)
+            
+        }
         
     }
     
