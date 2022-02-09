@@ -9,7 +9,7 @@ import Foundation
 import CoreLocation
 
 protocol CryptoManagerDelegate {
-    func didUpdatePrice(price: String)
+    func didUpdatePrice(price: String, currency: String, crypto: String)
     func didFailWithError(error: Error)
 }
 
@@ -43,7 +43,7 @@ struct CryptoManager {
                 if let safeData = data {
                     if let cryptoPrice = self.parseJSON(safeData) {
                         let priceString = String(format: "$%.02f", cryptoPrice)
-                        self.delegate?.didUpdatePrice(price: priceString)
+                        self.delegate?.didUpdatePrice(price: priceString, currency: currency, crypto: crypto)
                     }
                 }
             }

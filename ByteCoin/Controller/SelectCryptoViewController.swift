@@ -26,6 +26,10 @@ class SelectCryptoViewController: UITableViewController {
     
     var namesArray = ""
     var abbrArray = ""
+    
+    var selectedImage : URL?
+    var selectedFullName : String?
+    
     var selectedCurrency : String? {
         return cryptoView.currencyPickerSelected
     }
@@ -103,25 +107,15 @@ class SelectCryptoViewController: UITableViewController {
     
     override func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
         
-        let selectedName = cryptoManager.orderedCryptoDict[indexPath.row].key
+        selectedFullName = cryptoManager.orderedCryptoDict[indexPath.row].key
+        
+        if imagesArray.count > 0 {
+            selectedImage = imagesArray[indexPath.row]
+        }
         
         let selectedCrypto = cryptoManager.orderedCryptoDict[indexPath.row].value
         
         cryptoManager.getCryptoPrice(for: selectedCurrency!, in: selectedCrypto)
-        
-        if imagesArray.count > 0 {
-            
-            if let safeValue = cryptoValue {
-                
-                let cryptoSelected = Crypto(cryptoImage: imagesArray[indexPath.row], cryptoName: selectedName, cryptoAbbr: selectedCrypto, currencyValue: safeValue, currencyName: selectedCurrency!)
-                
-                delegate?.didSelectCryptoOption(crypto: cryptoSelected)
-                
-            }
-            
-            navigationController?.popViewController(animated: true)
-            
-        }
         
     }
     
@@ -140,8 +134,20 @@ extension SelectCryptoViewController: CryptoImageDelegate {
 
 extension SelectCryptoViewController: CryptoManagerDelegate {
     
-    func didUpdatePrice(price: String) {
-        self.cryptoValue = price
+    func didUpdatePrice(price: String, currency: String, crypto: String) {
+//        self.cryptoValue = price
+        
+        if imagesArray.count > 0 {
+                
+                let cryptoSelected = Crypto(cryptoImage: selectedImage, cryptoName: selectedFullName!, cryptoAbbr: crypto, currencyValue: price, currencyName: currency)
+                
+                delegate?.didSelectCryptoOption(crypto: cryptoSelected)
+            
+            DispatchQueue.main.async {
+                self.navigationController?.popViewController(animated: true)
+            }
+            
+        }
     }
     
     func didFailWithError(error: Error) {
