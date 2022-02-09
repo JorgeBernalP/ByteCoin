@@ -16,6 +16,8 @@ class SelectCryptoViewController: UITableViewController {
     
     var delegate: SelectCryptoDelegate?
     
+    var cryptoView = CryptoViewController()
+    
     var cryptoManager = CryptoManager()
     
     var cryptoImageManager = CryptoImageManager()
@@ -24,11 +26,18 @@ class SelectCryptoViewController: UITableViewController {
     
     var namesArray = ""
     var abbrArray = ""
+    var selectedCurrency : String? {
+        return cryptoView.currencyPickerSelected
+    }
+    var cryptoValue: String?
     var imagesArray : [URL?] = []
 
     override func viewDidLoad() {
         super.viewDidLoad()
         
+        print(cryptoValue ?? "No price")
+
+        cryptoManager.delegate = self
         cryptoImageManager.delegate = self
         
         tableView.rowHeight = 56
@@ -94,15 +103,21 @@ class SelectCryptoViewController: UITableViewController {
     
     override func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
         
+        let selectedName = cryptoManager.orderedCryptoDict[indexPath.row].key
+        
+        let selectedCrypto = cryptoManager.orderedCryptoDict[indexPath.row].value
+        
+        cryptoManager.getCryptoPrice(for: selectedCurrency!, in: selectedCrypto)
+        
         if imagesArray.count > 0 {
             
-            let selectedName = cryptoManager.orderedCryptoDict[indexPath.row].key
-            
-            let selectedCrypto = cryptoManager.orderedCryptoDict[indexPath.row].value
-            
-            let cryptoSelected = Crypto(cryptoImage: imagesArray[indexPath.row], cryptoName: selectedName, cryptoAbbr: selectedCrypto, currencyValue: "0", currencyName: "USD")
-            
-            delegate?.didSelectCryptoOption(crypto: cryptoSelected)
+            if let safeValue = cryptoValue {
+                
+                let cryptoSelected = Crypto(cryptoImage: imagesArray[indexPath.row], cryptoName: selectedName, cryptoAbbr: selectedCrypto, currencyValue: safeValue, currencyName: selectedCurrency!)
+                
+                delegate?.didSelectCryptoOption(crypto: cryptoSelected)
+                
+            }
             
             navigationController?.popViewController(animated: true)
             
@@ -119,6 +134,18 @@ extension SelectCryptoViewController: CryptoImageDelegate {
             self.cryptoImageArray = cryptoImg
             self.tableView.reloadData()
         }
+    }
+    
+}
+
+extension SelectCryptoViewController: CryptoManagerDelegate {
+    
+    func didUpdatePrice(price: String) {
+        self.cryptoValue = price
+    }
+    
+    func didFailWithError(error: Error) {
+        print(error)
     }
     
 }

@@ -9,7 +9,7 @@ import Foundation
 import CoreLocation
 
 protocol CryptoManagerDelegate {
-    func didUpdatePrice(price: String, currency: String, crypto: String)
+    func didUpdatePrice(price: String)
     func didFailWithError(error: Error)
 }
 
@@ -17,22 +17,16 @@ struct CryptoManager {
     
     var delegate : CryptoManagerDelegate?
     
-    let rateURL = "https://rest.coinapi.io/v1/exchangerate/"
+    let rateURL = "https://rest.coinapi.io/v1/exchangerate"
     let apiKey = "244BBAF1-FC77-4E6D-8113-C4247FFC041F"
     
-//    let currencyArray = ["AUD", "BRL","CAD", "COP", "CNY","EUR","GBP","HKD", "INR","JPY","MXN","RUB","USD"]
-    
-    let currencyDict = ["Australian Dollar" : "AUD", "Brazilian Real" : "BRL", "Canadian Dollar" : "CAD", "Colombian Peso" : "COP", "Chinese Yuan" : "CNY", "Euro" : "EUR", "Pound sterling" : "GBP", "Hong Kong Dollar" : "HKD", "Indian Rupee" : "INR", "Japanese Yen" : "JPY", "MXN" : "Mexican Peso", "Russian Rubble" : "RUB", "United States Dollar" : "USD"]
+    let currencyDict = ["Australian Dollar" : "AUD", "Brazilian Real" : "BRL", "Canadian Dollar" : "CAD", "Colombian Peso" : "COP", "Chinese Yuan" : "CNY", "Euro" : "EUR", "Pound sterling" : "GBP", "Hong Kong Dollar" : "HKD", "Indian Rupee" : "INR", "Japanese Yen" : "JPY", "Mexican Peso" : "MXN", "Russian Rubble" : "RUB", "United States Dollar" : "USD"]
     
     lazy var orderedCurrencyDict = currencyDict.sorted(by: <)
-    
-//    let cryptoArray = ["BTC", "ETH", "BNB", "ADA", "SOL", "XRP", "LUNA", "DOGE", "DOT", "AVAX"]
     
     let cryptoDict = ["Bitcoin" : "BTC", "Ethereum": "ETH", "TRON" : "TRX", "Cardano": "ADA", "Bitcoin Cash" : "BCH", "XRP" : "XRP", "TERRA" : "LUNA" , "Dogecoin" : "DOGE", "Polkadot" : "DOT", "Litecoin" : "LTC" ]
     
     lazy var orderedCryptoDict = cryptoDict.sorted(by: <)
-    
-    
     
     func getCryptoPrice(for currency: String, in crypto: String) {
         
@@ -49,7 +43,7 @@ struct CryptoManager {
                 if let safeData = data {
                     if let cryptoPrice = self.parseJSON(safeData) {
                         let priceString = String(format: "$%.02f", cryptoPrice)
-                        self.delegate?.didUpdatePrice(price: priceString, currency: currency, crypto: crypto)
+                        self.delegate?.didUpdatePrice(price: priceString)
                     }
                 }
             }

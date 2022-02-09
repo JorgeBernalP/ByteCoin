@@ -9,6 +9,10 @@ import UIKit
 import NeumorphismKit
 import Kingfisher
 
+protocol CryptoDelegate {
+    func didSelectCurrency(_ currency: String)
+}
+
 class CryptoViewController: UIViewController {
 
     @IBOutlet weak var descriptionLabel: UILabel!
@@ -18,13 +22,9 @@ class CryptoViewController: UIViewController {
     
     var cryptoManager = CryptoManager()
     
-    var cryptoName : String = ""
-    var cryptoPrice : String = ""
-    var currency : String = ""
-    var cryptoId : String = ""
-    var cryptoImageURL : URL?
+    var delegate : CryptoDelegate?
     
-    var currencyPickerSelected = ""
+    var currencyPickerSelected: String = "USD"
     
     var cryptos : [Crypto] = []
     
@@ -36,11 +36,10 @@ class CryptoViewController: UIViewController {
         
         tableView.dataSource = self
         tableView.delegate = self
-        cryptoManager.delegate = self
         currencyPicker.dataSource = self
         
         DispatchQueue.main.async {
-            self.descriptionLabel.text = "Check the current prices of cryptocurrency arround the world in \(self.currencyPickerSelected)."
+            self.descriptionLabel.text = "Check the current prices of cryptocurrency arround the world in \(self.cryptoManager.currencyDict.getCurrencyName(forCurrency: self.currencyPickerSelected) ?? "")."
         }
         
         //Default value
@@ -84,7 +83,11 @@ class CryptoViewController: UIViewController {
     @objc func onDoneButtonTapped() {
         currencyPickerToolBar.removeFromSuperview()
         currencyPicker.removeFromSuperview()
-        cryptoManager.getCryptoPrice(for: currencyPickerSelected, in: cryptoId)
+        delegate?.didSelectCurrency(currencyPickerSelected)
+        DispatchQueue.main.async {
+            self.descriptionLabel.text = "Check the current prices of cryptocurrency arround the world in \(self.cryptoManager.currencyDict.getCurrencyName(forCurrency: self.currencyPickerSelected) ?? "")."
+        }
+//        cryptoManager.getCryptoPrice(for: currencyPickerSelected, in: cryptoId)
     }
 
     @IBAction func addCryptoPressed(_ sender: UIButton) {
@@ -114,6 +117,8 @@ extension CryptoViewController: UITableViewDataSource {
         
         DispatchQueue.main.async {
             cell.setupCell(with: crypto)
+            cell.currencyName.text = self.currencyPickerSelected
+            tableView.reloadData()
         }
         
         cell.backgroundColor = UIColor(ciColor: .clear)
@@ -152,24 +157,9 @@ extension CryptoViewController: UIPickerViewDelegate, UIPickerViewDataSource {
     
     func pickerView(_ pickerView: UIPickerView, didSelectRow row: Int, inComponent component: Int) {
         currencyPickerSelected = cryptoManager.orderedCurrencyDict[row].value
-    }
-    
-}
-
-//MARK: - CryptoManagerDelegate
-
-extension CryptoViewController: CryptoManagerDelegate {
-    
-    func didUpdatePrice(price: String, currency: String, crypto: String) {
-        DispatchQueue.main.async {
-            self.cryptoPrice = price
-            self.currency = currency
-            self.tableView.reloadData()
-        }
-    }
-    
-    func didFailWithError(error: Error) {
-        print(error)
+        let selected = cryptoManager.orderedCurrencyDict[row].value
+        delegate?.didSelectCurrency(selected)
+        print(selected)
     }
     
 }
@@ -189,4 +179,13 @@ extension CryptoViewController: SelectCryptoDelegate {
     
 }
 
+//MARK: - Dictionary Extension
+
+
+//Function that searches for a key in a dictonary by its value
+extension Dictionary where Value: Equatable {
+    func getCurrencyName(forCurrency currency: Value) -> Key? {
+        return first(where: { $1 == currency })?.key
+    }
+}
 
