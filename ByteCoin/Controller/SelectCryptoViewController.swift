@@ -27,12 +27,11 @@ class SelectCryptoViewController: UITableViewController {
     var namesArray = ""
     var abbrArray = ""
     
+    var selectedCurrency: String?
+    
     var selectedImage : URL?
     var selectedFullName : String?
-    
-    var selectedCurrency : String? {
-        return cryptoView.currencyPickerSelected
-    }
+
     var cryptoValue: String?
     var imagesArray : [URL?] = []
 

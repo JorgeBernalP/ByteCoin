@@ -20,7 +20,7 @@ struct CryptoManager {
     let rateURL = "https://rest.coinapi.io/v1/exchangerate"
     let apiKey = "244BBAF1-FC77-4E6D-8113-C4247FFC041F"
     
-    let currencyDict = ["Australian Dollar" : "AUD", "Brazilian Real" : "BRL", "Canadian Dollar" : "CAD", "Colombian Peso" : "COP", "Chinese Yuan" : "CNY", "Euro" : "EUR", "Pound sterling" : "GBP", "Hong Kong Dollar" : "HKD", "Indian Rupee" : "INR", "Japanese Yen" : "JPY", "Mexican Peso" : "MXN", "Russian Rubble" : "RUB", "United States Dollar" : "USD"]
+    let currencyDict = ["Australian Dollar" : "AUD", "Brazilian Real" : "BRL", "Canadian Dollar" : "CAD", "Colombian Peso" : "COP", "Euro" : "EUR", "Pound sterling" : "GBP", "Hong Kong Dollar" : "HKD", "Indian Rupee" : "INR", "Japanese Yen" : "JPY", "Mexican Peso" : "MXN", "Russian Rubble" : "RUB", "United States Dollar" : "USD"]
     
     lazy var orderedCurrencyDict = currencyDict.sorted(by: <)
     
