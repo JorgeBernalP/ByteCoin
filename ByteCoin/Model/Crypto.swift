@@ -10,10 +10,10 @@ import UIKit
 
 struct Crypto {
     
-    let cryptoImage : URL?
-    let cryptoName : String
-    let cryptoAbbr : String
-    let currencyValue : String
-    let currencyName : String
+    let cryptoImage: URL?
+    let cryptoName: String
+    let cryptoAbbr: String
+    let currencyValue: [Rate]
+    let currencyName: String
     
 }

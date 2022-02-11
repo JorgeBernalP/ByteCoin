@@ -122,6 +122,14 @@ extension CryptoViewController: UITableViewDataSource {
         
         DispatchQueue.main.async {
             cell.setupCell(with: crypto)
+            
+            if let safeValue = crypto.currencyValue.first(where: { rate in
+                rate.assetIDQuote == self.currencyPickerSelected
+            }) {
+                let valueString = String(format: "$%.02f", safeValue.rate)
+                cell.currencyValue.text = valueString
+            }
+    
             cell.currencyName.text = self.currencyPickerSelected
         }
         

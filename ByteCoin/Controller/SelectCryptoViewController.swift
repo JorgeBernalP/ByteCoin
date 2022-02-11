@@ -20,6 +20,8 @@ class SelectCryptoViewController: UITableViewController {
     
     var cryptoManager = CryptoManager()
     
+    var cryptoRateManager = CryptoRateManager()
+    
     var cryptoImageManager = CryptoImageManager()
     
     var cryptoImageArray: [CryptoImageData] = []
@@ -41,6 +43,7 @@ class SelectCryptoViewController: UITableViewController {
         print(cryptoValue ?? "No price")
 
         cryptoManager.delegate = self
+        cryptoRateManager.delegate = self
         cryptoImageManager.delegate = self
         
         tableView.rowHeight = 56
@@ -114,7 +117,7 @@ class SelectCryptoViewController: UITableViewController {
         
         let selectedCrypto = cryptoManager.orderedCryptoDict[indexPath.row].value
         
-        cryptoManager.getCryptoPrice(for: selectedCurrency!, in: selectedCrypto)
+        cryptoRateManager.getCryptoRates(for: selectedCrypto)
         
     }
     
@@ -135,10 +138,21 @@ extension SelectCryptoViewController: CryptoManagerDelegate {
     
     func didUpdatePrice(price: String, currency: String, crypto: String) {
 //        self.cryptoValue = price
+    }
+    
+    func didFailWithError(error: Error) {
+        print(error)
+    }
+    
+}
+
+extension SelectCryptoViewController: CryptoRateDelegate {
+    
+    func didGetCryptoRates(crypto: String, rates: [Rate]) {
         
         if imagesArray.count > 0 {
                 
-                let cryptoSelected = Crypto(cryptoImage: selectedImage, cryptoName: selectedFullName!, cryptoAbbr: crypto, currencyValue: price, currencyName: currency)
+                let cryptoSelected = Crypto(cryptoImage: selectedImage, cryptoName: selectedFullName!, cryptoAbbr: crypto, currencyValue: rates, currencyName: selectedCurrency ?? "")
                 
                 delegate?.didSelectCryptoOption(crypto: cryptoSelected)
             
@@ -147,10 +161,7 @@ extension SelectCryptoViewController: CryptoManagerDelegate {
             }
             
         }
-    }
-    
-    func didFailWithError(error: Error) {
-        print(error)
+        
     }
     
 }

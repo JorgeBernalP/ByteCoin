@@ -36,7 +36,7 @@ class CryptoCell: UITableViewCell {
         cryptoImage.kf.setImage(with: crypto.cryptoImage)
         cryptoName.text = crypto.cryptoName
         cryptoShortName.text = crypto.cryptoAbbr
-        currencyValue.text = crypto.currencyValue
+        currencyValue.text = String(0)
         currencyName.text = crypto.currencyName
         
     }
