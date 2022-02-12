@@ -23,8 +23,6 @@
 		FA7C96BC27B6114400154580 /* CryptoRateData.swift in Sources */ = {isa = PBXBuildFile; fileRef = FA7C96BB27B6114400154580 /* CryptoRateData.swift */; };
 		FAF8103327A5B20A00B0DC2A /* CryptoCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = FAF8103127A5B20A00B0DC2A /* CryptoCell.swift */; };
 		FAF8103427A5B20A00B0DC2A /* CryptoCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = FAF8103227A5B20A00B0DC2A /* CryptoCell.xib */; };
-		FAF8103627A5DEB900B0DC2A /* CryptoManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = FAF8103527A5DEB900B0DC2A /* CryptoManager.swift */; };
-		FAF8103827A5E18C00B0DC2A /* CryptoData.swift in Sources */ = {isa = PBXBuildFile; fileRef = FAF8103727A5E18C00B0DC2A /* CryptoData.swift */; };
 		FAF8103A27A603F100B0DC2A /* Crypto.swift in Sources */ = {isa = PBXBuildFile; fileRef = FAF8103927A603F100B0DC2A /* Crypto.swift */; };
 		FAF8103E27A6EB6400B0DC2A /* SelectCryptoViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = FAF8103D27A6EB6400B0DC2A /* SelectCryptoViewController.swift */; };
 /* End PBXBuildFile section */
@@ -49,8 +47,6 @@
 		FA7C96BB27B6114400154580 /* CryptoRateData.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CryptoRateData.swift; sourceTree = "<group>"; };
 		FAF8103127A5B20A00B0DC2A /* CryptoCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CryptoCell.swift; sourceTree = "<group>"; };
 		FAF8103227A5B20A00B0DC2A /* CryptoCell.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = CryptoCell.xib; sourceTree = "<group>"; };
-		FAF8103527A5DEB900B0DC2A /* CryptoManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CryptoManager.swift; sourceTree = "<group>"; };
-		FAF8103727A5E18C00B0DC2A /* CryptoData.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CryptoData.swift; sourceTree = "<group>"; };
 		FAF8103927A603F100B0DC2A /* Crypto.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Crypto.swift; sourceTree = "<group>"; };
 		FAF8103D27A6EB6400B0DC2A /* SelectCryptoViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SelectCryptoViewController.swift; sourceTree = "<group>"; };
 		FE772D44A6F818EF9AC4984E /* Pods_ByteCoin.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_ByteCoin.framework; sourceTree = BUILT_PRODUCTS_DIR; };
@@ -133,8 +129,6 @@
 			isa = PBXGroup;
 			children = (
 				FA51A68027A44DE800A40310 /* ByteCoin.xcdatamodeld */,
-				FAF8103527A5DEB900B0DC2A /* CryptoManager.swift */,
-				FAF8103727A5E18C00B0DC2A /* CryptoData.swift */,
 				FAF8103927A603F100B0DC2A /* Crypto.swift */,
 				FA49021727AB815800BD36F5 /* CryptoImageManager.swift */,
 				FA49021927AB819D00BD36F5 /* CryptoImageData.swift */,
@@ -286,9 +280,7 @@
 				FA51A67C27A44DE800A40310 /* CryptoViewController.swift in Sources */,
 				FA51A67827A44DE800A40310 /* AppDelegate.swift in Sources */,
 				FAF8103E27A6EB6400B0DC2A /* SelectCryptoViewController.swift in Sources */,
-				FAF8103627A5DEB900B0DC2A /* CryptoManager.swift in Sources */,
 				FA7C96BA27B60EE100154580 /* CryptoRateManager.swift in Sources */,
-				FAF8103827A5E18C00B0DC2A /* CryptoData.swift in Sources */,
 				FAF8103327A5B20A00B0DC2A /* CryptoCell.swift in Sources */,
 				FA51A68227A44DE800A40310 /* ByteCoin.xcdatamodeld in Sources */,
 				FA49021827AB815800BD36F5 /* CryptoImageManager.swift in Sources */,

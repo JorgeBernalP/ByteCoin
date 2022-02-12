@@ -18,8 +18,6 @@ class SelectCryptoViewController: UITableViewController {
     
     var cryptoView = CryptoViewController()
     
-    var cryptoManager = CryptoManager()
-    
     var cryptoRateManager = CryptoRateManager()
     
     var cryptoImageManager = CryptoImageManager()
@@ -42,7 +40,6 @@ class SelectCryptoViewController: UITableViewController {
         
         print(cryptoValue ?? "No price")
 
-        cryptoManager.delegate = self
         cryptoRateManager.delegate = self
         cryptoImageManager.delegate = self
         
@@ -70,13 +67,13 @@ class SelectCryptoViewController: UITableViewController {
     }
 
     override func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        return cryptoManager.cryptoDict.count
+        return cryptoView.cryptoDict.count
     }
     
     override func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         
-        namesArray = cryptoManager.orderedCryptoDict[indexPath.row].key
-        abbrArray = cryptoManager.orderedCryptoDict[indexPath.row].value
+        namesArray = cryptoView.orderedCryptoDict[indexPath.row].key
+        abbrArray = cryptoView.orderedCryptoDict[indexPath.row].value
         
         let cell = tableView.dequeueReusableCell(withIdentifier: "CryptoOptionCell", for: indexPath)
         
@@ -109,19 +106,21 @@ class SelectCryptoViewController: UITableViewController {
     
     override func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
         
-        selectedFullName = cryptoManager.orderedCryptoDict[indexPath.row].key
+        selectedFullName = cryptoView.orderedCryptoDict[indexPath.row].key
         
         if imagesArray.count > 0 {
             selectedImage = imagesArray[indexPath.row]
         }
         
-        let selectedCrypto = cryptoManager.orderedCryptoDict[indexPath.row].value
+        let selectedCrypto = cryptoView.orderedCryptoDict[indexPath.row].value
         
         cryptoRateManager.getCryptoRates(for: selectedCrypto)
         
     }
     
 }
+
+//MARK: - CryptoImageDelegate
 
 extension SelectCryptoViewController: CryptoImageDelegate {
     
@@ -134,17 +133,7 @@ extension SelectCryptoViewController: CryptoImageDelegate {
     
 }
 
-extension SelectCryptoViewController: CryptoManagerDelegate {
-    
-    func didUpdatePrice(price: String, currency: String, crypto: String) {
-//        self.cryptoValue = price
-    }
-    
-    func didFailWithError(error: Error) {
-        print(error)
-    }
-    
-}
+//MARK: - CryptoRateDelegate
 
 extension SelectCryptoViewController: CryptoRateDelegate {
     

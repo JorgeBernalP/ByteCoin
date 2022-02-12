@@ -20,7 +20,13 @@ class CryptoViewController: UIViewController {
     @IBOutlet weak var cryptoButton: NeumorphismButton!
     @IBOutlet weak var currencyButton: NeumorphismButton!
     
-    var cryptoManager = CryptoManager()
+    let currencyDict = ["Australian Dollar" : "AUD", "Brazilian Real" : "BRL", "Canadian Dollar" : "CAD", "Colombian Peso" : "COP", "Euro" : "EUR", "Pound sterling" : "GBP", "Hong Kong Dollar" : "HKD", "Indian Rupee" : "INR", "Japanese Yen" : "JPY", "Mexican Peso" : "MXN", "Russian Rubble" : "RUB", "United States Dollar" : "USD"]
+    
+    lazy var orderedCurrencyDict = currencyDict.sorted(by: <)
+    
+    let cryptoDict = ["Bitcoin" : "BTC", "Ethereum": "ETH", "TRON" : "TRX", "Cardano": "ADA", "Bitcoin Cash" : "BCH", "XRP" : "XRP", "TERRA" : "LUNA" , "Dogecoin" : "DOGE", "Polkadot" : "DOT", "Litecoin" : "LTC" ]
+    
+    lazy var orderedCryptoDict = cryptoDict.sorted(by: <)
     
     var delegate : CryptoDelegate?
     
@@ -39,10 +45,8 @@ class CryptoViewController: UIViewController {
         currencyPicker.dataSource = self
         
         DispatchQueue.main.async {
-            self.descriptionLabel.text = "Check the current prices of cryptocurrency arround the world in \(self.cryptoManager.currencyDict.getCurrencyName(forCurrency: self.currencyPickerSelected) ?? "")."
+            self.descriptionLabel.text = "Check the current prices of cryptocurrency arround the world in \(self.currencyDict.getCurrencyName(forCurrency: self.currencyPickerSelected) ?? "")."
         }
-        
-        //Default value
         
         tableView.register(UINib(nibName: "CryptoCell", bundle: nil), forCellReuseIdentifier: "CryptoCell")
         
@@ -85,9 +89,8 @@ class CryptoViewController: UIViewController {
         currencyPicker.removeFromSuperview()
         delegate?.didSelectCurrency(currencyPickerSelected)
         DispatchQueue.main.async {
-            self.descriptionLabel.text = "Check the current prices of cryptocurrency arround the world in \(self.cryptoManager.currencyDict.getCurrencyName(forCurrency: self.currencyPickerSelected) ?? "")."
+            self.descriptionLabel.text = "Check the current prices of cryptocurrency arround the world in \(self.currencyDict.getCurrencyName(forCurrency: self.currencyPickerSelected) ?? "")."
         }
-//        cryptoManager.getCryptoPrice(for: currencyPickerSelected, in: cryptoId)
     }
 
     @IBAction func addCryptoPressed(_ sender: UIButton) {
@@ -160,16 +163,16 @@ extension CryptoViewController: UIPickerViewDelegate, UIPickerViewDataSource {
     }
     
     func pickerView(_ pickerView: UIPickerView, numberOfRowsInComponent component: Int) -> Int {
-        return cryptoManager.currencyDict.count
+        return currencyDict.count
     }
     
     func pickerView(_ pickerView: UIPickerView, titleForRow row: Int, forComponent component: Int) -> String? {
-        return cryptoManager.orderedCurrencyDict[row].key
+        return orderedCurrencyDict[row].key
     }
     
     func pickerView(_ pickerView: UIPickerView, didSelectRow row: Int, inComponent component: Int) {
-        currencyPickerSelected = cryptoManager.orderedCurrencyDict[row].value
-        let selected = cryptoManager.orderedCurrencyDict[row].value
+        currencyPickerSelected = orderedCurrencyDict[row].value
+        let selected = orderedCurrencyDict[row].value
         delegate?.didSelectCurrency(selected)
         print(selected)
         tableView.reloadData()
